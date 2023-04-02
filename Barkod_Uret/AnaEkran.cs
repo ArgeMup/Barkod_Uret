@@ -1,4 +1,4 @@
-﻿using ArgeMup.HazirKod.Ekİşlemler;
+﻿using ArgeMup.HazirKod;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -12,11 +12,12 @@ namespace Barkod_Uret
 {
     public partial class AnaEkran : Form
     {
-        public static string[] Parametreler = null;
-
         public AnaEkran()
         {
             InitializeComponent();
+
+            Text = "ArGeMuP " + Kendi.Adı + " " + Kendi.Sürüm;
+            Icon = Properties.Resources.Barkod;
 
             Tür.Items.AddRange(string.Join("?", Enum.GetNames(typeof(BarcodeFormat))).Split('?')); Tür.Text = BarcodeFormat.QR_CODE.ToString();
             PDF417_GörüntüOranı.Items.AddRange(string.Join("?", Enum.GetNames(typeof(PDF417AspectRatio))).Split('?')); PDF417_GörüntüOranı.Text = PDF417AspectRatio.AUTO.ToString();
@@ -25,88 +26,100 @@ namespace Barkod_Uret
         }
         private void AnaEkran_Shown(object sender, EventArgs e)
         {
+            IDepo_Eleman Detaylar = Ortak.Depo_Ayarlar["Detaylar"];
+            Tür.Text = Detaylar.Oku("Tür", BarcodeFormat.QR_CODE.ToString());
+            Resim_Genişlik.Value = Detaylar.Oku_TamSayı("Resim Boyutu", 300, 0);
+            Resim_Yükseklik.Value = Detaylar.Oku_TamSayı("Resim Boyutu", 300, 1);
+            KarakterKodlama.Text = Detaylar.Oku("Karakter Kodlama", "ASCII");
+            HataDüzeltme.Text = Detaylar.Oku("Hata Düzeltme", "M");
+            KenarBoşluğu.Value = Detaylar.Oku_TamSayı("Kenar Boşluğu", 0);
+            ÇıktıŞekli.Text = Detaylar.Oku("Çıktı Şekli", SymbolShapeHint.FORCE_NONE.ToString());
+            PDF417_GörüntüOranı.Text = Detaylar.Oku("PDF417", PDF417AspectRatio.AUTO.ToString(), 0);
+            PDF417_ResimGörüntüOranı.Value = (decimal)Detaylar.Oku_Sayı("PDF417", 3, 1);
+            AztecKatmanSayısı.Value = Detaylar.Oku_TamSayı("AZTEC");
+            PURE_BARCODE.Checked = Detaylar.Oku_Bit("PURE_BARCODE");
+            GS1_FORMAT.Checked = Detaylar.Oku_Bit("GS1_FORMAT");
             Girdi.Text = "ArGeMuP";
 
             Ayar_Değişti(null, null);
+
+            Kaydet.Enabled = false;
         }
+        private void AnaEkran_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (Kaydet.Enabled)
+            {
+                DialogResult dr = MessageBox.Show("Değişiklikleri kaydetmeden çıkmak istiyor musunuz?", Text, MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                if (dr == DialogResult.Cancel)
+                {
+                    e.Cancel = true;
+                }
+            }
+        }
+
+        void Hata_Ekle(string Mesaj)
+        {
+            Hatalar.AppendText(Mesaj + Environment.NewLine);
+            Hatalar.Select(Hatalar.Left, 0);
+
+            if (Hatalar.Tag == null)
+            {
+                Hatalar.Tag = 0;
+                Hatalar.BackColor = System.Drawing.Color.Bisque;
+            }
+            else
+            {
+                Hatalar.Tag = null;
+                Hatalar.BackColor = System.Drawing.Color.LightPink;
+            }
+        }
+
+        private void Sığdır_CheckedChanged(object sender, EventArgs e)
+        {
+            Barkod.SizeMode = Sığdır.Checked ? PictureBoxSizeMode.Zoom : PictureBoxSizeMode.Normal;
+        }
+
         private void Ayar_Değişti(object sender, EventArgs e)
         {
+            Kaydet.Enabled = true;
+
             if (string.IsNullOrEmpty(Girdi.Text)) return;
+
+            IDepo_Eleman Detaylar = Ortak.Depo_Ayarlar["Detaylar"];
+            Detaylar.Yaz("Tür", Tür.Text);
+            Detaylar.Yaz("Resim Boyutu", (int)Resim_Genişlik.Value, 0);
+            Detaylar.Yaz("Resim Boyutu", (int)Resim_Yükseklik.Value, 1);
+            Detaylar.Yaz("Karakter Kodlama", KarakterKodlama.Text);
+            Detaylar.Yaz("Hata Düzeltme", HataDüzeltme.Text);
+            Detaylar.Yaz("Kenar Boşluğu", (int)KenarBoşluğu.Value);
+            Detaylar.Yaz("Çıktı Şekli", ÇıktıŞekli.Text);
+            Detaylar.Yaz("PDF417", PDF417_GörüntüOranı.Text, 0);
+            Detaylar.Yaz("PDF417", (double)PDF417_ResimGörüntüOranı.Value, 1);
+            Detaylar.Yaz("AZTEC", (int)AztecKatmanSayısı.Value);
+            Detaylar.Yaz("PURE_BARCODE", PURE_BARCODE.Checked);
+            Detaylar.Yaz("GS1_FORMAT", GS1_FORMAT.Checked);
+            Detaylar.Yaz("İçerik", Girdi.Text);
 
             try
             {
-                string[] Parametreler = new string[]
-                {
-                    Tür.Text,
-                    Resim_Genişlik.Value.ToString(),
-                    Resim_Yükseklik.Value.ToString(),
-                    KarakterKodlama.Text,
-                    HataDüzeltme.Text,
-                    KenarBoşluğu.Value.ToString(),
-                    ÇıktıŞekli.Text,
-                    PDF417_GörüntüOranı.Text,
-                    PDF417_ResimGörüntüOranı.Value.ToString(),
-                    AztecKatmanSayısı.Value.ToString(),
-                    PURE_BARCODE.Checked ? "E" : "H",
-                    GS1_FORMAT.Checked ? "E" : "H",
-                    Girdi.Text
-                };
-
-                Image çıktı = Üret(Parametreler);
-                if (Barkod.Image != null) Barkod.Image.Dispose();
-                Barkod.Image = çıktı;
-
-                Parametre_İzleme.Text = string.Join(" ", Parametreler).Trim();
+                Hatalar.Text = Ortak.Üret(out System.Drawing.Image Resim);
+                Barkod.Image?.Dispose();
+                Barkod.Image = Resim;
+                Hatalar.BackColor = SystemColors.Window;
             }
             catch (Exception ex)
             {
-                Parametre_İzleme.Text = ex.Message;
+                Hata_Ekle(ex.Message);
             }
         }
-
-        public static Image Üret(string[] Parametreler)
+        private void Kaydet_Click(object sender, EventArgs e)
         {
-            var barcodeWriter = new BarcodeWriter();
-            string mesaj = "";
-            try
-            {
-                barcodeWriter.Format = (BarcodeFormat)Enum.Parse(typeof(BarcodeFormat), Parametreler[0], false);
-                barcodeWriter.Options = new EncodingOptions
-                {
-                    Width = int.Parse(Parametreler[1]),
-                    Height = int.Parse(Parametreler[2])
-                };
+            Ortak.Depo_Ayarlar.Sil("Detaylar", true, true);
+            Ayar_Değişti(null, null);
 
+            System.IO.File.WriteAllText(Ortak.Depo_Komut["Ayarlar", 0], Ortak.Depo_Ayarlar.YazıyaDönüştür());
 
-                if (Parametreler[3] != "ASCII")
-                {
-                    barcodeWriter.Options.Hints[EncodeHintType.CHARACTER_SET] = "UTF-8";
-                    barcodeWriter.Options.Hints[EncodeHintType.DISABLE_ECI] = true;
-                    barcodeWriter.Options.Hints[EncodeHintType.PDF417_AUTO_ECI] = false;
-                }
-
-                barcodeWriter.Options.Hints[EncodeHintType.ERROR_CORRECTION] = Parametreler[4];
-                barcodeWriter.Options.Hints[EncodeHintType.MARGIN] = int.Parse(Parametreler[5]);
-                barcodeWriter.Options.Hints[EncodeHintType.DATA_MATRIX_SHAPE] = (SymbolShapeHint)Enum.Parse(typeof(SymbolShapeHint), Parametreler[6], false);
-
-                barcodeWriter.Options.Hints[EncodeHintType.PDF417_ASPECT_RATIO] = (PDF417AspectRatio)Enum.Parse(typeof(PDF417AspectRatio), Parametreler[7], false);
-                barcodeWriter.Options.Hints[EncodeHintType.PDF417_IMAGE_ASPECT_RATIO] = float.Parse(Parametreler[8]);
-                barcodeWriter.Options.Hints[EncodeHintType.AZTEC_LAYERS] = int.Parse(Parametreler[9]);
-
-                barcodeWriter.Options.Hints[EncodeHintType.PURE_BARCODE] = Parametreler[10] == "E";
-                barcodeWriter.Options.Hints[EncodeHintType.GS1_FORMAT] = Parametreler[11] == "E";
-
-                for (int i = 12; i < Parametreler.Length; i++)
-                {
-                    mesaj += Parametreler[i] + " ";
-                }
-                mesaj = mesaj.Trim();
-
-                if (mesaj.StartsWith("0x")) mesaj = mesaj.BaytDizisine_HexYazıdan().Yazıya();
-            }
-            catch (Exception) { throw new Exception("Parametreleri kontrol ediniz");}
-            
-            return barcodeWriter.Write(mesaj);
+            Kaydet.Enabled = false;
         }
     }
 }

@@ -42,6 +42,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.GS1_FORMAT = new System.Windows.Forms.CheckBox();
             this.Girdi = new System.Windows.Forms.TextBox();
+            this.Hatalar = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.KenarBoşluğu = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
@@ -54,7 +55,8 @@
             this.KarakterKodlama = new System.Windows.Forms.ComboBox();
             this.Barkod = new System.Windows.Forms.PictureBox();
             this.HataDüzeltme = new System.Windows.Forms.TextBox();
-            this.Parametre_İzleme = new System.Windows.Forms.TextBox();
+            this.Sığdır = new System.Windows.Forms.CheckBox();
+            this.Kaydet = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Resim_Genişlik)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Resim_Yükseklik)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.KenarBoşluğu)).BeginInit();
@@ -68,7 +70,7 @@
             this.Tür.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Tür.Location = new System.Drawing.Point(238, 12);
             this.Tür.Name = "Tür";
-            this.Tür.Size = new System.Drawing.Size(154, 24);
+            this.Tür.Size = new System.Drawing.Size(190, 24);
             this.Tür.Sorted = true;
             this.Tür.TabIndex = 2;
             this.Tür.SelectedIndexChanged += new System.EventHandler(this.Ayar_Değişti);
@@ -105,7 +107,7 @@
             0,
             0});
             this.Resim_Genişlik.Name = "Resim_Genişlik";
-            this.Resim_Genişlik.Size = new System.Drawing.Size(74, 22);
+            this.Resim_Genişlik.Size = new System.Drawing.Size(90, 22);
             this.Resim_Genişlik.TabIndex = 4;
             this.Resim_Genişlik.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Resim_Genişlik.Value = new decimal(new int[] {
@@ -117,7 +119,7 @@
             // 
             // Resim_Yükseklik
             // 
-            this.Resim_Yükseklik.Location = new System.Drawing.Point(318, 42);
+            this.Resim_Yükseklik.Location = new System.Drawing.Point(338, 42);
             this.Resim_Yükseklik.Maximum = new decimal(new int[] {
             65000,
             0,
@@ -129,7 +131,7 @@
             0,
             0});
             this.Resim_Yükseklik.Name = "Resim_Yükseklik";
-            this.Resim_Yükseklik.Size = new System.Drawing.Size(74, 22);
+            this.Resim_Yükseklik.Size = new System.Drawing.Size(90, 22);
             this.Resim_Yükseklik.TabIndex = 5;
             this.Resim_Yükseklik.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Resim_Yükseklik.Value = new decimal(new int[] {
@@ -153,9 +155,11 @@
             // 
             // İpUcu
             // 
-            this.İpUcu.AutomaticDelay = 1000;
+            this.İpUcu.AutomaticDelay = 100;
+            this.İpUcu.AutoPopDelay = 10000;
+            this.İpUcu.InitialDelay = 100;
             this.İpUcu.IsBalloon = true;
-            this.İpUcu.ShowAlways = true;
+            this.İpUcu.ReshowDelay = 20;
             this.İpUcu.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.İpUcu.ToolTipTitle = "Detaylar";
             this.İpUcu.UseAnimation = false;
@@ -210,10 +214,23 @@
             this.Girdi.Location = new System.Drawing.Point(15, 297);
             this.Girdi.Multiline = true;
             this.Girdi.Name = "Girdi";
-            this.Girdi.Size = new System.Drawing.Size(377, 71);
+            this.Girdi.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.Girdi.Size = new System.Drawing.Size(413, 64);
             this.Girdi.TabIndex = 25;
-            this.İpUcu.SetToolTip(this.Girdi, resources.GetString("Girdi.ToolTip"));
+            this.İpUcu.SetToolTip(this.Girdi, "Girdi");
             this.Girdi.TextChanged += new System.EventHandler(this.Ayar_Değişti);
+            // 
+            // Hatalar
+            // 
+            this.Hatalar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.Hatalar.Location = new System.Drawing.Point(15, 367);
+            this.Hatalar.Multiline = true;
+            this.Hatalar.Name = "Hatalar";
+            this.Hatalar.ReadOnly = true;
+            this.Hatalar.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.Hatalar.Size = new System.Drawing.Size(413, 62);
+            this.Hatalar.TabIndex = 36;
+            this.İpUcu.SetToolTip(this.Hatalar, "Hatalar");
             // 
             // label4
             // 
@@ -233,7 +250,7 @@
             0,
             0});
             this.KenarBoşluğu.Name = "KenarBoşluğu";
-            this.KenarBoşluğu.Size = new System.Drawing.Size(154, 22);
+            this.KenarBoşluğu.Size = new System.Drawing.Size(190, 22);
             this.KenarBoşluğu.TabIndex = 12;
             this.KenarBoşluğu.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.KenarBoşluğu.ValueChanged += new System.EventHandler(this.Ayar_Değişti);
@@ -243,9 +260,9 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(12, 130);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(141, 16);
+            this.label5.Size = new System.Drawing.Size(94, 16);
             this.label5.TabIndex = 10;
-            this.label5.Text = "Kenar Boşluğu (piksel)";
+            this.label5.Text = "Kenar Boşluğu";
             // 
             // label6
             // 
@@ -258,6 +275,12 @@
             // 
             // PDF417_ResimGörüntüOranı
             // 
+            this.PDF417_ResimGörüntüOranı.DecimalPlaces = 2;
+            this.PDF417_ResimGörüntüOranı.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
             this.PDF417_ResimGörüntüOranı.Location = new System.Drawing.Point(238, 215);
             this.PDF417_ResimGörüntüOranı.Maximum = new decimal(new int[] {
             65000,
@@ -270,7 +293,7 @@
             0,
             0});
             this.PDF417_ResimGörüntüOranı.Name = "PDF417_ResimGörüntüOranı";
-            this.PDF417_ResimGörüntüOranı.Size = new System.Drawing.Size(154, 22);
+            this.PDF417_ResimGörüntüOranı.Size = new System.Drawing.Size(190, 22);
             this.PDF417_ResimGörüntüOranı.TabIndex = 14;
             this.PDF417_ResimGörüntüOranı.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.PDF417_ResimGörüntüOranı.Value = new decimal(new int[] {
@@ -285,7 +308,7 @@
             this.PDF417_GörüntüOranı.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.PDF417_GörüntüOranı.Location = new System.Drawing.Point(238, 186);
             this.PDF417_GörüntüOranı.Name = "PDF417_GörüntüOranı";
-            this.PDF417_GörüntüOranı.Size = new System.Drawing.Size(154, 24);
+            this.PDF417_GörüntüOranı.Size = new System.Drawing.Size(190, 24);
             this.PDF417_GörüntüOranı.Sorted = true;
             this.PDF417_GörüntüOranı.TabIndex = 15;
             this.PDF417_GörüntüOranı.SelectedIndexChanged += new System.EventHandler(this.Ayar_Değişti);
@@ -304,7 +327,7 @@
             this.ÇıktıŞekli.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ÇıktıŞekli.Location = new System.Drawing.Point(238, 156);
             this.ÇıktıŞekli.Name = "ÇıktıŞekli";
-            this.ÇıktıŞekli.Size = new System.Drawing.Size(154, 24);
+            this.ÇıktıŞekli.Size = new System.Drawing.Size(190, 24);
             this.ÇıktıŞekli.Sorted = true;
             this.ÇıktıŞekli.TabIndex = 17;
             this.ÇıktıŞekli.SelectedIndexChanged += new System.EventHandler(this.Ayar_Değişti);
@@ -323,7 +346,7 @@
             0,
             -2147483648});
             this.AztecKatmanSayısı.Name = "AztecKatmanSayısı";
-            this.AztecKatmanSayısı.Size = new System.Drawing.Size(154, 22);
+            this.AztecKatmanSayısı.Size = new System.Drawing.Size(190, 22);
             this.AztecKatmanSayısı.TabIndex = 23;
             this.AztecKatmanSayısı.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.AztecKatmanSayısı.ValueChanged += new System.EventHandler(this.Ayar_Değişti);
@@ -336,7 +359,7 @@
             "UTF-8"});
             this.KarakterKodlama.Location = new System.Drawing.Point(238, 70);
             this.KarakterKodlama.Name = "KarakterKodlama";
-            this.KarakterKodlama.Size = new System.Drawing.Size(154, 24);
+            this.KarakterKodlama.Size = new System.Drawing.Size(120, 24);
             this.KarakterKodlama.Sorted = true;
             this.KarakterKodlama.TabIndex = 24;
             this.KarakterKodlama.SelectedIndexChanged += new System.EventHandler(this.Ayar_Değişti);
@@ -346,9 +369,10 @@
             this.Barkod.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.Barkod.Location = new System.Drawing.Point(398, 12);
+            this.Barkod.BackColor = System.Drawing.Color.Black;
+            this.Barkod.Location = new System.Drawing.Point(434, 12);
             this.Barkod.Name = "Barkod";
-            this.Barkod.Size = new System.Drawing.Size(446, 429);
+            this.Barkod.Size = new System.Drawing.Size(436, 457);
             this.Barkod.TabIndex = 26;
             this.Barkod.TabStop = false;
             // 
@@ -356,30 +380,43 @@
             // 
             this.HataDüzeltme.Location = new System.Drawing.Point(238, 100);
             this.HataDüzeltme.Name = "HataDüzeltme";
-            this.HataDüzeltme.Size = new System.Drawing.Size(154, 22);
+            this.HataDüzeltme.Size = new System.Drawing.Size(190, 22);
             this.HataDüzeltme.TabIndex = 27;
             this.HataDüzeltme.Text = "M";
             this.HataDüzeltme.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.HataDüzeltme.TextChanged += new System.EventHandler(this.Ayar_Değişti);
             // 
-            // Parametre_İzleme
+            // Sığdır
             // 
-            this.Parametre_İzleme.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.Parametre_İzleme.Location = new System.Drawing.Point(15, 374);
-            this.Parametre_İzleme.Multiline = true;
-            this.Parametre_İzleme.Name = "Parametre_İzleme";
-            this.Parametre_İzleme.ReadOnly = true;
-            this.Parametre_İzleme.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.Parametre_İzleme.Size = new System.Drawing.Size(377, 67);
-            this.Parametre_İzleme.TabIndex = 28;
-            this.İpUcu.SetToolTip(this.Parametre_İzleme, "Seçili ayarların komut satırı parametreleri");
+            this.Sığdır.AutoSize = true;
+            this.Sığdır.Location = new System.Drawing.Point(364, 74);
+            this.Sığdır.Name = "Sığdır";
+            this.Sığdır.Size = new System.Drawing.Size(64, 20);
+            this.Sığdır.TabIndex = 34;
+            this.Sığdır.Text = "Sığdır";
+            this.Sığdır.UseVisualStyleBackColor = true;
+            this.Sığdır.CheckedChanged += new System.EventHandler(this.Sığdır_CheckedChanged);
+            // 
+            // Kaydet
+            // 
+            this.Kaydet.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.Kaydet.Enabled = false;
+            this.Kaydet.Location = new System.Drawing.Point(15, 435);
+            this.Kaydet.Name = "Kaydet";
+            this.Kaydet.Size = new System.Drawing.Size(413, 34);
+            this.Kaydet.TabIndex = 35;
+            this.Kaydet.Text = "Kaydet";
+            this.Kaydet.UseVisualStyleBackColor = true;
+            this.Kaydet.Click += new System.EventHandler(this.Kaydet_Click);
             // 
             // AnaEkran
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(856, 453);
-            this.Controls.Add(this.Parametre_İzleme);
+            this.ClientSize = new System.Drawing.Size(882, 481);
+            this.Controls.Add(this.Hatalar);
+            this.Controls.Add(this.Kaydet);
+            this.Controls.Add(this.Sığdır);
             this.Controls.Add(this.HataDüzeltme);
             this.Controls.Add(this.Barkod);
             this.Controls.Add(this.Girdi);
@@ -404,7 +441,9 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Tür);
             this.Name = "AnaEkran";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AnaEkran_FormClosing);
             this.Shown += new System.EventHandler(this.AnaEkran_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.Resim_Genişlik)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Resim_Yükseklik)).EndInit();
@@ -443,7 +482,9 @@
         private System.Windows.Forms.TextBox Girdi;
         private System.Windows.Forms.PictureBox Barkod;
         private System.Windows.Forms.TextBox HataDüzeltme;
-        private System.Windows.Forms.TextBox Parametre_İzleme;
+        private System.Windows.Forms.CheckBox Sığdır;
+        private System.Windows.Forms.Button Kaydet;
+        private System.Windows.Forms.TextBox Hatalar;
     }
 }
 

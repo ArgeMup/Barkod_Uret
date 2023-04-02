@@ -28,9 +28,17 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>
+    </DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\Barkod.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -91,6 +99,7 @@
     <Compile Include="HazirKod_Cdiyez\UygulamaOncedenCalistirildiMi.cs" />
     <Compile Include="HazirKod_Cdiyez\Win32Kutuphaneleri.cs" />
     <Compile Include="HazirKod_Cdiyez\YeniYazılımKontrolü.cs" />
+    <Compile Include="Ortak\Ortak.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AnaEkran.resx">
@@ -125,6 +134,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\zxing.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Barkod.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

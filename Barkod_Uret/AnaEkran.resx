@@ -141,12 +141,4 @@ Aztec -&gt; % olarak hata kabul oranı (en az 25)</value>
 number of layers (the default) A positive number (1, 2, .. 32) specifies a normal
 (non-compact) Aztec code</value>
   </data>
-  <data name="Girdi.ToolTip" xml:space="preserve">
-    <value>Komut satırından çağırırken
-1-Üstteki detayların tümünü aralarında boşluk olacak şekilde ard arda ekle
-2-En son eklenen içerik olur
-2A-Doğrudan boşluklar ile yazılabilir -&gt; ArGeMuP mesajı denemesi
-2B-0x ile başlayıp UTF8 hex karşılığı olabilir -&gt; 0xABCD85...
-3-exe nin olduğu yerde cikti.png oluşturulur.</value>
-  </data>
 </root>
