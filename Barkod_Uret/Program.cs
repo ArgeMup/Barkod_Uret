@@ -1,4 +1,5 @@
 ﻿using ArgeMup.HazirKod;
+using ArgeMup.HazirKod.Ekİşlemler;
 using System.IO;
 
 namespace Barkod_Uret
@@ -53,7 +54,7 @@ namespace Barkod_Uret
                 }
                 else
                 {
-                    BaşlangıçParamaetreleri[0] = ArgeMup.HazirKod.Dönüştürme.D_Yazı.Taban64ten(BaşlangıçParamaetreleri[0]);
+                    BaşlangıçParamaetreleri[0] = BaşlangıçParamaetreleri[0].Taban64ten().Yazıya();
                     Ortak.Depo_Komut = new Depo_(BaşlangıçParamaetreleri[0]);
                 }
             }

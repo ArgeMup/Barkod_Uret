@@ -16,7 +16,7 @@ namespace Barkod_Uret
         {
             InitializeComponent();
 
-            Text = "ArGeMuP " + Kendi.Adı + " " + Kendi.Sürüm;
+            Text = "ArGeMuP " + Kendi.Adı + " " + Kendi.Sürümü_Dosya;
             Icon = Properties.Resources.Barkod;
 
             Tür.Items.AddRange(string.Join("?", Enum.GetNames(typeof(BarcodeFormat))).Split('?')); Tür.Text = BarcodeFormat.QR_CODE.ToString();
@@ -117,6 +117,7 @@ namespace Barkod_Uret
             Ortak.Depo_Ayarlar.Sil("Detaylar", true, true);
             Ayar_Değişti(null, null);
 
+            Klasör.Oluştur(System.IO.Path.GetDirectoryName(Ortak.Depo_Komut["Ayarlar", 0]));
             System.IO.File.WriteAllText(Ortak.Depo_Komut["Ayarlar", 0], Ortak.Depo_Ayarlar.YazıyaDönüştür());
 
             Kaydet.Enabled = false;
