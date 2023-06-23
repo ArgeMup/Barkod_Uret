@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Windows.Forms;
 
 using ZXing;
-using ZXing.Common;
 using ZXing.Datamatrix.Encoder;
 using ZXing.PDF417.Internal;
 

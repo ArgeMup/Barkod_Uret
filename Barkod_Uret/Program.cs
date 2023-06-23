@@ -75,6 +75,8 @@ namespace Barkod_Uret
                 string snç = null;
                 try
                 {
+                    if (!Dosya.Sil(Ortak.Depo_Komut["Komut", 1])) throw new System.Exception("Dosya bir uygulama içinde açık olduğundan silinemedi." + System.Environment.NewLine + Ortak.Depo_Komut["Komut", 1]);
+
                     if (!System.String.IsNullOrWhiteSpace(Ortak.Depo_Komut["Güncel İçerik", 0])) Ortak.Depo_Ayarlar["Detaylar/İçerik", 0] = Ortak.Depo_Komut["Güncel İçerik", 0];
 
                     snç = Ortak.Üret(out System.Drawing.Image Resim);
