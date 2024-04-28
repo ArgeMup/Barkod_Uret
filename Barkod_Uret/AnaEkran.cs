@@ -15,7 +15,7 @@ namespace Barkod_Uret
         {
             InitializeComponent();
 
-            Text = "ArGeMuP " + Kendi.Adı + " " + Kendi.Sürümü_Dosya;
+            Text = "ArGeMuP " + Kendi.Adı;
             Icon = Properties.Resources.Barkod;
 
             Tür.Items.AddRange(string.Join("?", Enum.GetNames(typeof(BarcodeFormat))).Split('?')); Tür.Text = BarcodeFormat.QR_CODE.ToString();
@@ -43,6 +43,26 @@ namespace Barkod_Uret
             Ayar_Değişti(null, null);
 
             Kaydet.Enabled = false;
+
+#if !DEBUG
+            if (!AnaKontrolcü.YanUygulamaOlarakÇalışıyor && !System.IO.File.Exists(Kendi.Klasörü + "\\YeniSurumuKontrolEtme.txt"))
+            {
+                Ortak.YeniYazılımKontrolü = new YeniYazılımKontrolü_();
+                Ortak.YeniYazılımKontrolü.Başlat(new Uri("https://github.com/ArgeMup/Barkod_Uret/raw/main/Barkod_Uret/bin/Release/Barkod_Uret.exe"), _YeniYazılımKontrolü_GeriBildirim_);
+
+                void _YeniYazılımKontrolü_GeriBildirim_(bool Sonuç, string Açıklama)
+                {
+                    if (Açıklama.Contains("github")) Açıklama = "Bağlantı kurulamadı";
+                    else if (Açıklama == "Durduruldu") return;
+
+                    Invoke(new Action(() =>
+                    {
+                        Text += " " + Açıklama;
+                    }));
+                }
+            }
+            else Text += " V" + Kendi.Sürümü_Dosya;
+#endif
         }
         private void AnaEkran_FormClosing(object sender, FormClosingEventArgs e)
         {

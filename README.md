@@ -6,12 +6,6 @@ Many thanks to the team of the [zxing.net project](https://https://github.com/mi
 
 Many thanks to the team of the [zxing project](https://github.com/zxing/zxing) for their great work. ZXing.Net would not be possible without your work!
 
-    Komut satırından kullanım
-        Seçenek 1 - Barkod_Uret.exe <Komut Verme Depo Dosyasının Yolu>
-        Seçenek 2 - Barkod_Uret.exe <Komut Verme Depo Dosyası İçeriğinin Base64 Hali>
-        Seçenek 3 - Barkod_Uret.exe YeniYazilimKontrolu                                  (Kontrolü bitirip kapanır)
-        Seçenek 4 - Barkod_Uret.exe                                                      (Bu durumda değişiklikleri kendi alt klasörüne kaydeder)
-
     Komut Verme Depo Dosyası İçeriği
         Komut / Ayarla VEYA
         Komut / Dosyaya Kaydet / Dosya adı

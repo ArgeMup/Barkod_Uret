@@ -11,6 +11,7 @@ namespace Barkod_Uret
     public static class Ortak
     {
         public static Depo_ Depo_Komut = null, Depo_Ayarlar = null;
+        public static YeniYazılımKontrolü_ YeniYazılımKontrolü;
 
         public static string Üret(out Image Resim)
         {

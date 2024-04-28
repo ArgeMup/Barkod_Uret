@@ -483,8 +483,8 @@
         private System.Windows.Forms.PictureBox Barkod;
         private System.Windows.Forms.TextBox HataDüzeltme;
         private System.Windows.Forms.CheckBox Sığdır;
-        private System.Windows.Forms.Button Kaydet;
         private System.Windows.Forms.TextBox Hatalar;
+        public System.Windows.Forms.Button Kaydet;
     }
 }
 
