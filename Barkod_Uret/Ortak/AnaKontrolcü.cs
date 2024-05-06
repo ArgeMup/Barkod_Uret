@@ -50,7 +50,7 @@ namespace Barkod_Uret
                 Ortak.Depo_Komut["Komut", 0] = "Ayarla";
                 Ortak.Depo_Komut["Ayarlar", 0] = Kendi.Klasörü + "\\Ayarlar.mup";
                 
-                Ortak.Depo_Ayarlar = new Depo_(Ortak.Depo_Komut["Ayarlar", 0].DosyaYolu_Oku_Yazı());
+                Ortak.Depo_Ayarlar = new Depo_(Dosya.Oku_Yazı(Ortak.Depo_Komut["Ayarlar", 0]));
 
                 BoştaBekleyenAnaUygulama = new AnaEkran();
             }
@@ -86,14 +86,14 @@ namespace Barkod_Uret
 
                 if (YanUygulama_SonAçılan_Depo_Ayarlar_DosyaYolu != Ortak.Depo_Komut["Ayarlar", 0])
                 {
-                    Ortak.Depo_Ayarlar = new Depo_(Ortak.Depo_Komut["Ayarlar", 0].DosyaYolu_Oku_Yazı());
+                    Ortak.Depo_Ayarlar = new Depo_(Dosya.Oku_Yazı(Ortak.Depo_Komut["Ayarlar", 0]));
 
                     YanUygulama_SonAçılan_Depo_Ayarlar_DosyaYolu = Ortak.Depo_Komut["Ayarlar", 0];
                 }
 
                 if (Ortak.Depo_Komut["Komut", 0] == "Dosyaya Kaydet")
                 {
-                    if (!Dosya.Sil(Ortak.Depo_Komut["Komut", 1]))
+                    if (!Temkinli.Dosya.Sil(Ortak.Depo_Komut["Komut", 1]))
                     {
                         Sonuç = "Dosya bir uygulama içinde açık olduğundan silinemedi." + System.Environment.NewLine + Ortak.Depo_Komut["Komut", 1];
                     }
@@ -134,7 +134,7 @@ namespace Barkod_Uret
             Kilit.ReleaseMutex();
 
 #if DEBUG
-            Sonuç.Dosyaİçeriği_Yaz("epst.txt");
+            Dosya.Yaz("epst.txt", Sonuç);
 #else
             byte[] cevap_dizi = Sonuç.BaytDizisine();
             if (cevap_dizi != null && cevap_dizi.Length > 0) Şube.Gönder(cevap_dizi);

@@ -136,7 +136,7 @@ namespace Barkod_Uret
             Ortak.Depo_Ayarlar.Sil("Detaylar", true, true);
             Ayar_Değişti(null, null);
 
-            Klasör.Oluştur(System.IO.Path.GetDirectoryName(Ortak.Depo_Komut["Ayarlar", 0]));
+            Klasör.Oluştur(Dosya.Klasörü(Ortak.Depo_Komut["Ayarlar", 0]));
             System.IO.File.WriteAllText(Ortak.Depo_Komut["Ayarlar", 0], Ortak.Depo_Ayarlar.YazıyaDönüştür());
 
             Kaydet.Enabled = false;
