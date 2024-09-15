@@ -50,7 +50,7 @@ namespace Barkod_Uret
                 Ortak.Depo_Komut["Komut", 0] = "Ayarla";
                 Ortak.Depo_Komut["Ayarlar", 0] = Kendi.Klasörü + "\\Ayarlar.mup";
                 
-                Ortak.Depo_Ayarlar = new Depo_(Dosya.Oku_Yazı(Ortak.Depo_Komut["Ayarlar", 0]));
+                Ortak.Depo_Ayarlar = new Depo_(Temkinli.Dosya.Oku_Yazı(Ortak.Depo_Komut["Ayarlar", 0]));
 
                 BoştaBekleyenAnaUygulama = new AnaEkran();
             }
@@ -86,7 +86,7 @@ namespace Barkod_Uret
 
                 if (YanUygulama_SonAçılan_Depo_Ayarlar_DosyaYolu != Ortak.Depo_Komut["Ayarlar", 0])
                 {
-                    Ortak.Depo_Ayarlar = new Depo_(Dosya.Oku_Yazı(Ortak.Depo_Komut["Ayarlar", 0]));
+                    Ortak.Depo_Ayarlar = new Depo_(Temkinli.Dosya.Oku_Yazı(Ortak.Depo_Komut["Ayarlar", 0]));
 
                     YanUygulama_SonAçılan_Depo_Ayarlar_DosyaYolu = Ortak.Depo_Komut["Ayarlar", 0];
                 }
